@@ -38,12 +38,6 @@ types = {
 },
 }
 
-import os
-import io
-import streamlit as st
-from gtts import gTTS
-
-# Conversion Factors
 # Expanded with additional categories: Energy, Speed, Area, Pressure, Data Storage
 types = {
     "Length": {"meter": 1, "kilometer": 0.001, "centimeter": 100, "millimeter": 1000, "mile": 0.000621371,
@@ -99,24 +93,22 @@ st.markdown("""
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Raleway:wght@500;700&family=Orbitron:wght@500&display=swap');
 
     /* Global styles */
-    body {
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #141e30, #243b55) !important;
-        color: #ffffff !important;
+   .custom-about {
+       
     }
 
     /* Main App Container */
     .stApp {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(10px);
+        background-color: #8CC48F; /* Dark blue background */
+        color: #ffffff; /* White text */
+        padding: 15px;
         border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     }
 
    /* Sidebar Styling */
 .stSidebar {
-    background: linear-gradient(135deg, #1a1a2e, #16213e) !important;
+    background: linear-gradient(190deg, #558D59, #16213e) !important;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
