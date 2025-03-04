@@ -18,15 +18,17 @@ This is a Streamlit-based unit converter application that supports various unit 
 
 3. Install the required dependencies:
     ```sh
-    pip install -r requirements.txt
+    pip install streamlit==1.22.0
+    pip install pygame==2.1.2
+    pip install gtts==2.3.2
+    pip install speechrecognition==3.8.1
     ```
 
-4. If you encounter issues with `pygame`, install it separately:
-    ```sh
-    pip install pygame
-    ```
+4. If you encounter issues with `pygame`, ensure you have the necessary build tools installed. On Windows, you can install the Visual Studio Build Tools from [here](https://visualstudio.microsoft.com/visual-cpp-build-tools/).
 
-5. Run the Streamlit application:
+5. To further troubleshoot the installation issues, you can try installing the dependencies one by one to identify which package is causing the problem. Additionally, ensure that you have the necessary build tools installed on your system.
+
+6. Run the Streamlit application:
     ```sh
     streamlit run unit-convertor.py
     ```
