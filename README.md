@@ -31,5 +31,6 @@ This is a Streamlit-based unit converter application that supports various unit 
 - Streamlit
 - Pygame
 - gTTS
+- SpeechRecognition
 
 Make sure to install the dependencies using the provided `requirements.txt` file.
