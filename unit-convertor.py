@@ -228,51 +228,59 @@ value = st.number_input("Enter Value:", min_value=0.00, format="%.4f")
 
 # Conversion Function
 def convert(value, from_unit, to_unit, unit_type):
-    if unit_type == "Temperature":
-        temp = value if from_unit == "celsius" else (value - 32) * 5/9 if from_unit == "fahrenheit" else value - 273.15
-        return types[unit_type][to_unit](temp)
-    else:
-        return value * (types[unit_type][to_unit] / types[unit_type][from_unit])
-    
+    try:
+        if unit_type == "Temperature":
+            temp = value if from_unit == "celsius" else (value - 32) * 5/9 if from_unit == "fahrenheit" else value - 273.15
+            return types[unit_type][to_unit](temp)
+        else:
+            return value * (types[unit_type][to_unit] / types[unit_type][from_unit])
+    except KeyError:
+        st.error("Invalid unit type or unit selected.")
+        return None
+
 # Speech Function
 def speak(text):
-    text = text.replace(" 0 ", " zero ")  
-    text = text.replace("0.", "zero point ")  
-    
-    tts = gTTS(text=text, lang="en")
-    file_path = "output.mp3"
-    pygame.mixer.music.stop()
-    pygame.mixer.quit()
-    pygame.mixer.init()
+    try:
+        text = text.replace(" 0 ", " zero ")  
+        text = text.replace("0.", "zero point ")  
 
-    if os.path.exists(file_path):
+        tts = gTTS(text=text, lang="en")
+        file_path = "output.mp3"
+        pygame.mixer.music.stop()
+        pygame.mixer.quit()
+        pygame.mixer.init()
+
+        if os.path.exists(file_path):
+            try:
+                os.remove(file_path)
+            except PermissionError:
+                time.sleep(1)
+                os.remove(file_path)
+
+        tts.save(file_path)
+        pygame.mixer.music.load(file_path)
+        pygame.mixer.music.play()
+
+        while pygame.mixer.music.get_busy():
+            time.sleep(0.1)
+
+        pygame.mixer.music.stop()
+        pygame.mixer.quit()
+        pygame.mixer.init()
+
+        time.sleep(0.5)
+
         try:
             os.remove(file_path)
         except PermissionError:
             time.sleep(1)
             os.remove(file_path)
-
-    tts.save(file_path)
-    pygame.mixer.music.load(file_path)
-    pygame.mixer.music.play()
-
-    while pygame.mixer.music.get_busy():
-        time.sleep(0.1)
-
-    pygame.mixer.music.stop()
-    pygame.mixer.quit()
-    pygame.mixer.init()
-
-    time.sleep(0.5)
-    
-    try:
-        os.remove(file_path)
-    except PermissionError:
-        time.sleep(1)
-        os.remove(file_path)
+    except Exception as e:
+        st.error(f"Error in speech synthesis: {e}")
 
 if st.button("Convert"):
     result = convert(value, from_unit, to_unit, selected_type)
-    result_text = f"{value} {from_unit} = {result:.4f} {to_unit}"
-    st.markdown(f"<h3 class='stMarkdown'>{result_text}</h3>", unsafe_allow_html=True)
-    speak(result_text)
+    if result is not None:
+        result_text = f"{value} {from_unit} = {result:.4f} {to_unit}"
+        st.markdown(f"<h3 class='stMarkdown'>{result_text}</h3>", unsafe_allow_html=True)
+        speak(result_text)
