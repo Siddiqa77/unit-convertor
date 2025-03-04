@@ -21,7 +21,12 @@ This is a Streamlit-based unit converter application that supports various unit 
     pip install -r requirements.txt
     ```
 
-4. Run the Streamlit application:
+4. If you encounter issues with `pygame`, install it separately:
+    ```sh
+    pip install pygame
+    ```
+
+5. Run the Streamlit application:
     ```sh
     streamlit run unit-convertor.py
     ```
