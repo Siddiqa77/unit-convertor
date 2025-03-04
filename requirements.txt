@@ -1,0 +1,6 @@
+streamlit
+gTTS
+speech_recognition
+
+
+ 
